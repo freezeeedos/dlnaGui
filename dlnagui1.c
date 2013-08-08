@@ -111,18 +111,16 @@ void execdlna(GtkWidget *startbtn, GtkWidget *statusbar)
 
 void killdlna(GtkWidget *startbtn, GtkWidget *statusbar)
 {
-
+    pid_t pid;
+    char *cmd;
+    
     checkifrunning(statusbar);
-    if(proc_find("minidlna") != -1){
-        if(system("killall minidlna") == -1)
-        {
-            return;
-        }
-        else
-        {
-            sleep(1);
-            checkifrunning(statusbar);
-        }
+    pid = proc_find("minidlna");
+    
+    if(pid != -1){
+        kill(pid, SIGTERM);
+	sleep(1);
+	checkifrunning(statusbar);
     }
 }
 
