@@ -221,7 +221,7 @@ activate (GtkApplication *app,
     gtk_window_set_title (GTK_WINDOW (window), "DlnaGui");
     gtk_window_set_default_size (GTK_WINDOW (window), 640, 640);
 
-    gtk_frame = gtk_frame_new("Config");
+    gtk_frame = gtk_frame_new("Config editor");
     
     text_view = gtk_text_view_new();
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (text_view), GTK_WRAP_WORD);
