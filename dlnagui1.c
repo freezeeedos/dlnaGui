@@ -79,7 +79,7 @@ void *checkifrunning(GtkWidget *statusbar)
 {
     char *statusMessage;
     guint context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (statusbar),
-                                                            "Statusbar example");
+                                                            "dlnagui statusbar");
     if(proc_find("minidlna") == -1)
     {
         statusMessage = "Minidlna is not running...";
@@ -99,17 +99,15 @@ void execdlna(GtkWidget *startbtn, GtkWidget *statusbar)
     {
         if(system("minidlna &") == -1)
         {
+	    perror("system");
             return;
         }
-        else
-        {
-            usleep(1500);
-            checkifrunning(statusbar);
-        }
     }
+    usleep(1500);
+    checkifrunning(statusbar);
 }
 
-void killdlna(GtkWidget *startbtn, GtkWidget *statusbar)
+void killdlna(GtkWidget *stopbtn, GtkWidget *statusbar)
 {
     pid_t pid;
     char *cmd;
@@ -118,10 +116,13 @@ void killdlna(GtkWidget *startbtn, GtkWidget *statusbar)
     pid = proc_find("minidlna");
     
     if(pid != -1){
-        kill(pid, SIGTERM);
-	sleep(1);
-	checkifrunning(statusbar);
+        if(kill(pid, SIGTERM) == -1)
+	{
+	    perror("kill");
+	}
     }
+    sleep(1);
+    checkifrunning(statusbar);
 }
 
 char *readcfg(char *filename)
