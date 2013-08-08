@@ -208,6 +208,7 @@ activate (GtkApplication *app,
     GtkWidget *box1;
     GtkWidget *statusbar;
 
+    GtkWidget *gtk_frame;
     GtkWidget *text_view;
     GtkWidget *scrolled_window;
 
@@ -220,6 +221,8 @@ activate (GtkApplication *app,
     gtk_window_set_title (GTK_WINDOW (window), "DlnaGui");
     gtk_window_set_default_size (GTK_WINDOW (window), 640, 640);
 
+    gtk_frame = gtk_frame_new("Config");
+    
     text_view = gtk_text_view_new();
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (text_view), GTK_WRAP_WORD);
 
@@ -256,7 +259,8 @@ activate (GtkApplication *app,
 //     gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 5);
 
 
-    gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (box));
+    gtk_container_add (GTK_CONTAINER (window), gtk_frame);
+    gtk_container_add (GTK_CONTAINER (gtk_frame), GTK_WIDGET (box));
     gtk_container_add (GTK_CONTAINER (box), scrolled_window);
     gtk_container_add (GTK_CONTAINER (scrolled_window),
                        text_view);
