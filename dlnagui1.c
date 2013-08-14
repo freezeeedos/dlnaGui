@@ -88,9 +88,10 @@ void *checkifrunning(GtkWidget *statusbar)
     {
         statusMessage = "Minidlna is running !";
     }
-        gtk_statusbar_push (GTK_STATUSBAR (statusbar),
-                        context_id,
-                        statusMessage);
+    
+    gtk_statusbar_push (GTK_STATUSBAR (statusbar),
+		    context_id,
+		    statusMessage);
 }
 
 void execdlna(GtkWidget *startbtn, GtkWidget *statusbar)
@@ -110,7 +111,6 @@ void execdlna(GtkWidget *startbtn, GtkWidget *statusbar)
 void killdlna(GtkWidget *stopbtn, GtkWidget *statusbar)
 {
     pid_t pid;
-    char *cmd;
     
     checkifrunning(statusbar);
     pid = proc_find("minidlna");
@@ -155,8 +155,6 @@ static void load_cfg (GtkWidget *view)
 //     printf("Loading cfg file...\n");
     GtkTextBuffer *buffer;
     char *text = NULL;
-    char *statusMessage;
-    int ret;
     buffer = gtk_text_buffer_new (NULL);
     text = readcfg("/etc/minidlna.conf");
     if(text == NULL)
